@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Heading, Stack, useToast, Progress } from "@chakra-ui/react";
 import MoneyDisplay from "../components/MoneyDisplay";
 import IronDisplay from "../components/IronDisplay";
@@ -20,6 +20,7 @@ const Index = () => {
     coalUpgrade: false,
     moneyUpgrade: false,
     extraFurnace: 0,
+    autoMiner: false,
   });
   const toast = useToast();
 
@@ -71,10 +72,28 @@ const Index = () => {
     }
   };
 
+  useEffect(() => {
+    if (upgrades.autoMiner) {
+      const autoMinerInterval = setInterval(() => {
+        setSteel((prevSteel) => prevSteel + 1);
+      }, 5000);
+      return () => clearInterval(autoMinerInterval);
+    }
+  }, [upgrades.autoMiner]);
+
   const purchaseUpgrade = (upgradeId, cost) => {
     if (money >= cost) {
-      setMoney(money - cost);
-      setUpgrades({ ...upgrades, [upgradeId]: true });
+      setMoney((prevMoney) => prevMoney - cost);
+      setUpgrades((prevUpgrades) => ({ ...prevUpgrades, [upgradeId]: true }));
+      if (upgradeId === "autoMiner") {
+        toast({
+          title: "Auto Miner activated",
+          description: "Steel will now be mined automatically over time.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
     } else {
       toast({
         title: "Not enough money",
