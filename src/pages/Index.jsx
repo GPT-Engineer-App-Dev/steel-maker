@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Heading, Stack, useToast, Progress } from "@chakra-ui/react";
+import MiningFacts from "../components/MiningFacts";
 import MoneyDisplay from "../components/MoneyDisplay";
 import IronDisplay from "../components/IronDisplay";
 import CoalDisplay from "../components/CoalDisplay";
@@ -209,9 +210,11 @@ const Index = () => {
 
   return (
     <Container maxW="container.md" py={5}>
-      <Heading mb={6} textAlign="center">
+      import MiningFacts from "../components/MiningFacts";
+      <Heading mb={4} textAlign="center">
         Steel Production Game
       </Heading>
+      <MiningFacts />
       <Stack spacing={4} direction="column" align="center">
         <Stack spacing={4} direction="row" align="center">
           <Stack spacing={2} width="100%" align="center">
