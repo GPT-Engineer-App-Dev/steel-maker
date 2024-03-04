@@ -11,7 +11,8 @@ const Upgrades = ({ money, onPurchaseUpgrade }) => {
     { id: "efficiencyUpgrade", name: "Efficiency Upgrade", cost: 250, description: "Reduces the cost of mining." },
     { id: "advancedTools", name: "Advanced Tools", cost: 400, description: "Increases the speed of making steel." },
     { id: "extraFurnace", name: "Extra Furnace", cost: 500, description: "Allows you to smelt steel in an additional furnace simultaneously." },
-    { id: "autoMiner", name: "Auto Miner", cost: 600, description: "Automatically mines steel over time." },
+    { id: "autoMiner", name: "Auto Miner", cost: 600, description: "Automatically mines iron over time." },
+    { id: "autoCoalMaker", name: "Auto Coal Maker", cost: 300, description: "Automatically mines coal over time." },
   ];
 
   return (

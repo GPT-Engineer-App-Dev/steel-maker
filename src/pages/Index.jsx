@@ -21,6 +21,7 @@ const Index = () => {
     moneyUpgrade: false,
     extraFurnace: 0,
     autoMiner: false,
+    autoCoalMaker: false,
   });
   const toast = useToast();
 
@@ -72,6 +73,16 @@ const Index = () => {
     }
   };
 
+  // Add useEffect for autoCoalMaker
+  useEffect(() => {
+    if (upgrades.autoCoalMaker) {
+      const autoCoalMakerInterval = setInterval(() => {
+        setCoal((prevCoal) => prevCoal + 1);
+      }, 5000);
+      return () => clearInterval(autoCoalMakerInterval);
+    }
+  }, [upgrades.autoCoalMaker]);
+
   useEffect(() => {
     if (upgrades.autoMiner) {
       const autoMinerInterval = setInterval(() => {
@@ -85,7 +96,16 @@ const Index = () => {
     if (money >= cost) {
       setMoney((prevMoney) => prevMoney - cost);
       setUpgrades((prevUpgrades) => ({ ...prevUpgrades, [upgradeId]: true }));
-      if (upgradeId === "autoMiner") {
+      // Handle purchase of autoCoalMaker
+      if (upgradeId === "autoCoalMaker") {
+        toast({
+          title: "Auto Coal Maker activated",
+          description: "Coal will now be mined automatically over time.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else if (upgradeId === "autoMiner") {
         toast({
           title: "Auto Miner activated",
           description: "Iron will now be mined automatically over time.",
