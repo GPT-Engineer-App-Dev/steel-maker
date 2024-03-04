@@ -20,9 +20,12 @@ const Upgrades = ({ money, onPurchaseUpgrade }) => {
         Upgrades
       </Text>
       {upgrades.map((upgrade) => (
-        <Button key={upgrade.id} leftIcon={<FaArrowUp />} colorScheme="purple" isDisabled={money < upgrade.cost} onClick={() => onPurchaseUpgrade(upgrade.id, upgrade.cost)}>
-          {upgrade.name} - ${upgrade.cost}
-        </Button>
+        <Stack key={upgrade.id} spacing={1}>
+          <Button leftIcon={<FaArrowUp />} colorScheme="purple" isDisabled={money < upgrade.cost} onClick={() => onPurchaseUpgrade(upgrade.id, upgrade.cost)}>
+            {upgrade.name} - ${upgrade.cost}
+          </Button>
+          <Text fontSize="sm">{upgrade.description}</Text>
+        </Stack>
       ))}
     </Stack>
   );
