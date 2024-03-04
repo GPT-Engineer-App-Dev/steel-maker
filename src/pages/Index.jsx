@@ -13,6 +13,8 @@ import SellItems from "../components/SellItems";
 const Index = () => {
   const [iron, setIron] = useState(0);
   const [coal, setCoal] = useState(0);
+  const [ironProgress, setIronProgress] = useState(0);
+  const [coalProgress, setCoalProgress] = useState(0);
   const [steel, setSteel] = useState(0);
   const [money, setMoney] = useState(600);
   const [upgrades, setUpgrades] = useState({
@@ -30,13 +32,22 @@ const Index = () => {
 
   const mineIron = () => {
     if (!isMiningIron && money >= 5) {
+      setIronProgress(0);
       setIsMiningIron(true);
-      setTimeout(() => {
-        const ironOutput = upgrades.ironUpgrade ? 2 : 1;
-        setMoney(money - 5);
-        setIron(iron + ironOutput);
-        setIsMiningIron(false);
-      }, 3000);
+      const ironInterval = setInterval(() => {
+        setIronProgress((oldProgress) => {
+          const newProgress = oldProgress + 33.33;
+          if (newProgress >= 100) {
+            clearInterval(ironInterval);
+            const ironOutput = upgrades.ironUpgrade ? 2 : 1;
+            setMoney(money - 5);
+            setIron(iron + ironOutput);
+            setIsMiningIron(false);
+            setIronProgress(0);
+          }
+          return newProgress;
+        });
+      }, 1000);
     } else {
       toast({
         title: "Not enough money",
@@ -50,13 +61,22 @@ const Index = () => {
 
   const mineCoal = () => {
     if (!isMiningCoal && money >= 5) {
+      setCoalProgress(0);
       setIsMiningCoal(true);
-      setTimeout(() => {
-        const coalOutput = upgrades.coalUpgrade ? 2 : 1;
-        setMoney(money - 5);
-        setCoal(coal + coalOutput);
-        setIsMiningCoal(false);
-      }, 3000);
+      const coalInterval = setInterval(() => {
+        setCoalProgress((oldProgress) => {
+          const newProgress = oldProgress + 33.33;
+          if (newProgress >= 100) {
+            clearInterval(coalInterval);
+            const coalOutput = upgrades.coalUpgrade ? 2 : 1;
+            setMoney(money - 5);
+            setCoal(coal + coalOutput);
+            setIsMiningCoal(false);
+            setCoalProgress(0);
+          }
+          return newProgress;
+        });
+      }, 1000);
     } else {
       toast({
         title: "Not enough money",
@@ -180,12 +200,18 @@ const Index = () => {
       </Heading>
       <Stack spacing={4} direction="column" align="center">
         <Stack spacing={4} direction="row" align="center">
-          <Button leftIcon={<FaHammer />} colorScheme="orange" onClick={mineIron}>
-            Mine Iron
-          </Button>
-          <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
-            Mine Coal
-          </Button>
+          <Stack spacing={2} width="100%" align="center">
+            <Button leftIcon={<FaHammer />} colorScheme="orange" onClick={mineIron} isDisabled={isMiningIron}>
+              Mine Iron
+            </Button>
+            <Progress hasStripe isAnimated value={ironProgress} width="80%" />
+          </Stack>
+          <Stack spacing={2} width="100%" align="center">
+            <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal} isDisabled={isMiningCoal}>
+              Mine Coal
+            </Button>
+            <Progress hasStripe isAnimated value={coalProgress} width="80%" />
+          </Stack>
           <Furnace iron={iron} coal={coal} setIron={setIron} setCoal={setCoal} setSteel={setSteel} steel={steel} />
         </Stack>
         <IronDisplay iron={iron} />
