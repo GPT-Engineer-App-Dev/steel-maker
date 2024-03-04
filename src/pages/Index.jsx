@@ -19,6 +19,7 @@ const Index = () => {
     ironUpgrade: false,
     coalUpgrade: false,
     moneyUpgrade: false,
+    extraFurnace: 0,
   });
   const toast = useToast();
 
@@ -85,13 +86,16 @@ const Index = () => {
     }
   };
 
-  const [isMakingSteel, setIsMakingSteel] = useState(false);
+  // Initialize an array to track the steel-making status of each furnace
+  const [isMakingSteel, setIsMakingSteel] = useState([false]);
   const [steelProgress, setSteelProgress] = useState(0);
 
-  const makeSteel = () => {
+  const makeSteel = (furnaceIndex) => {
+    if (isMakingSteel[furnaceIndex]) return;
     if (isMakingSteel) return;
     if (iron >= 2 && coal >= 1) {
-      setIsMakingSteel(true);
+      // Update the state to reflect that the specific furnace is now making steel
+      setIsMakingSteel(isMakingSteel.map((status, index) => (index === furnaceIndex ? true : status)));
       setSteelProgress(0);
       const interval = setInterval(() => {
         setSteelProgress((oldProgress) => {
@@ -101,7 +105,8 @@ const Index = () => {
             setIron(iron - 2);
             setCoal(coal - 1);
             setSteel(steel + 1);
-            setIsMakingSteel(false);
+            // Update the state to reflect that the specific furnace has finished making steel
+            setIsMakingSteel(isMakingSteel.map((status, index) => (index === furnaceIndex ? false : status)));
             setSteelProgress(0);
           }
           return newProgress;
