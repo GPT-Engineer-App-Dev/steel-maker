@@ -66,6 +66,9 @@ const Index = () => {
         <Button leftIcon={<FaHammer />} colorScheme="orange" onClick={mineIron}>
           Mine Iron
         </Button>
+        <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
+          Mine Coal
+        </Button>
         <MoneyDisplay money={money} />
         <Upgrades money={money} onPurchaseUpgrade={purchaseUpgrade} />
       </Stack>
