@@ -25,11 +25,18 @@ const Index = () => {
   });
   const toast = useToast();
 
+  const [isMiningIron, setIsMiningIron] = useState(false);
+  const [isMiningCoal, setIsMiningCoal] = useState(false);
+
   const mineIron = () => {
-    if (money >= 5) {
-      const ironOutput = upgrades.ironUpgrade ? 2 : 1;
-      setMoney(money - 5);
-      setIron(iron + ironOutput);
+    if (!isMiningIron && money >= 5) {
+      setIsMiningIron(true);
+      setTimeout(() => {
+        const ironOutput = upgrades.ironUpgrade ? 2 : 1;
+        setMoney(money - 5);
+        setIron(iron + ironOutput);
+        setIsMiningIron(false);
+      }, 3000);
     } else {
       toast({
         title: "Not enough money",
@@ -42,10 +49,14 @@ const Index = () => {
   };
 
   const mineCoal = () => {
-    if (money >= 5) {
-      const coalOutput = upgrades.coalUpgrade ? 2 : 1;
-      setMoney(money - 5);
-      setCoal(coal + coalOutput);
+    if (!isMiningCoal && money >= 5) {
+      setIsMiningCoal(true);
+      setTimeout(() => {
+        const coalOutput = upgrades.coalUpgrade ? 2 : 1;
+        setMoney(money - 5);
+        setCoal(coal + coalOutput);
+        setIsMiningCoal(false);
+      }, 3000);
     } else {
       toast({
         title: "Not enough money",
