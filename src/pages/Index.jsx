@@ -6,6 +6,8 @@ import CoalDisplay from "../components/CoalDisplay";
 import { FaHammer, FaFire, FaMountain, FaCoins } from "react-icons/fa";
 import Upgrades from "../components/Upgrades";
 
+import SteelDisplay from "../components/SteelDisplay";
+
 const Index = () => {
   const [iron, setIron] = useState(0);
   const [coal, setCoal] = useState(0);
@@ -59,6 +61,22 @@ const Index = () => {
     }
   };
 
+  const makeSteel = () => {
+    if (iron >= 2 && coal >= 1) {
+      setIron(iron - 2);
+      setCoal(coal - 1);
+      setSteel(steel + 1);
+    } else {
+      toast({
+        title: "Not enough resources",
+        description: "You need at least 2 iron and 1 coal to make steel.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <Container maxW="container.md" py={5}>
       <Heading mb={6} textAlign="center">
@@ -71,8 +89,12 @@ const Index = () => {
         <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
           Mine Coal
         </Button>
+        <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel}>
+          Make Steel
+        </Button>
         <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
+        <SteelDisplay steel={steel} />
         <MoneyDisplay money={money} />
         <Upgrades money={money} onPurchaseUpgrade={purchaseUpgrade} />
       </Stack>
