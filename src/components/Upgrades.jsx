@@ -17,6 +17,11 @@ const Upgrades = ({ money, onPurchaseUpgrade }) => {
     { id: "megaDrill", name: "Mega Drill", cost: 800, description: "Triples iron mining output." },
     { id: "carbonRecycler", name: "Carbon Recycler", cost: 900, description: "Triples coal mining output." },
     { id: "steelRefinery", name: "Steel Refinery", cost: 1000, description: "Improves steel quality, increasing its selling price." },
+    { id: "hyperFurnace", name: "Hyper Furnace", cost: 1200, description: "Dramatically increases steel smelting speed." },
+    { id: "quantumDrill", name: "Quantum Drill", cost: 1400, description: "Exponentially increases iron mining output." },
+    { id: "diamondInfusedCoal", name: "Diamond-Infused Coal", cost: 1600, description: "Significantly boosts coal output and steel quality." },
+    { id: "orbitalMiningStation", name: "Orbital Mining Station", cost: 1800, description: "Unlocks space mining, yielding massive amounts of iron and coal." },
+    { id: "nanoTechSmelters", name: "Nano-Tech Smelters", cost: 2000, description: "Utilizes nanotechnology to smelt steel instantly." },
   ].sort((a, b) => a.cost - b.cost);
 
   return (
