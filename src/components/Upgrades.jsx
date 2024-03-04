@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Stack, Text } from "@chakra-ui/react";
+import { Button, Grid, Box, Text } from "@chakra-ui/react";
 import { FaArrowUp } from "react-icons/fa";
 
 const Upgrades = ({ money, onPurchaseUpgrade }) => {
@@ -25,19 +25,19 @@ const Upgrades = ({ money, onPurchaseUpgrade }) => {
   ].sort((a, b) => a.cost - b.cost);
 
   return (
-    <Stack spacing={4} align="center">
+    <Grid templateColumns="repeat(auto-fill, minmax(250px, 1fr))" gap={6}>
       <Text fontSize="xl" fontWeight="bold">
         Upgrades
       </Text>
       {upgrades.map((upgrade) => (
-        <Stack key={upgrade.id} spacing={1}>
+        <Box key={upgrade.id} p={3} borderWidth="1px" borderRadius="lg" overflow="hidden">
           <Button leftIcon={<FaArrowUp />} colorScheme="purple" isDisabled={money < upgrade.cost} onClick={() => onPurchaseUpgrade(upgrade.id, upgrade.cost)}>
             {upgrade.name} - ${upgrade.cost}
           </Button>
           <Text fontSize="sm">{upgrade.description}</Text>
-        </Stack>
+        </Box>
       ))}
-    </Stack>
+    </Grid>
   );
 };
 
