@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Heading, Stack, useToast } from "@chakra-ui/react";
+import { Button, Container, Heading, Stack, useToast } from "@chakra-ui/react";
 import MoneyDisplay from "../components/MoneyDisplay";
 import { FaHammer, FaFire, FaMountain, FaCoins } from "react-icons/fa";
 import Upgrades from "../components/Upgrades";
@@ -63,6 +63,9 @@ const Index = () => {
         Steel Production Game
       </Heading>
       <Stack spacing={4} align="center">
+        <Button leftIcon={<FaHammer />} colorScheme="orange" onClick={mineIron}>
+          Mine Iron
+        </Button>
         <MoneyDisplay money={money} />
         <Upgrades money={money} onPurchaseUpgrade={purchaseUpgrade} />
       </Stack>
