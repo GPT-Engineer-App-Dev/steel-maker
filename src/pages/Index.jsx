@@ -56,7 +56,7 @@ const Index = () => {
   };
 
   const sellSteel = () => {
-    const steelPrice = upgrades.moneyUpgrade ? 40 : 20;
+    const steelPrice = 30;
     if (steel > 0) {
       setSteel(steel - 1);
       setMoney(money + steelPrice);
