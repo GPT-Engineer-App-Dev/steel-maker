@@ -31,7 +31,7 @@ const Index = () => {
   const [isMiningCoal, setIsMiningCoal] = useState(false);
 
   const mineIron = () => {
-    if (!isMiningIron && money >= 5) {
+    if (!isMiningIron) {
       setIronProgress(0);
       setIsMiningIron(true);
       const ironInterval = setInterval(() => {
@@ -40,7 +40,7 @@ const Index = () => {
           if (newProgress >= 100) {
             clearInterval(ironInterval);
             const ironOutput = upgrades.ironUpgrade ? 2 : 1;
-            setMoney(money - 5);
+            // This line has been removed as mining is now free
             setIron(iron + ironOutput);
             setIsMiningIron(false);
             setIronProgress(0);
@@ -60,7 +60,7 @@ const Index = () => {
   };
 
   const mineCoal = () => {
-    if (!isMiningCoal && money >= 5) {
+    if (!isMiningCoal) {
       setCoalProgress(0);
       setIsMiningCoal(true);
       const coalInterval = setInterval(() => {
@@ -69,7 +69,7 @@ const Index = () => {
           if (newProgress >= 100) {
             clearInterval(coalInterval);
             const coalOutput = upgrades.coalUpgrade ? 2 : 1;
-            setMoney(money - 5);
+            // This line has been removed as mining is now free
             setCoal(coal + coalOutput);
             setIsMiningCoal(false);
             setCoalProgress(0);
