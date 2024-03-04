@@ -246,8 +246,8 @@ const Index = () => {
         Steel Production Game
       </Heading>
       <MiningFacts />
-      <Stack spacing={4} direction="column" align="center">
-        <Stack spacing={4} direction="row" align="center">
+      <Stack spacing={4} direction="row" align="center" wrap="wrap" justify="center">
+        <Stack spacing={4} direction="row" align="center" wrap="wrap" justify="center">
           <Stack spacing={2} width="100%" align="center">
             <Button leftIcon={<FaMountain />} colorScheme="orange" onClick={mineCopper} isDisabled={isMiningCopper}>
               Mine Copper
@@ -271,17 +271,17 @@ const Index = () => {
         <CoalDisplay coal={coal} />
         <SteelDisplay steel={steel} />
         <MoneyDisplay money={money} />
+        <CopperDisplay copper={copper} />
+        <IronDisplay iron={iron} />
+        <CoalDisplay coal={coal} />
+        <SteelDisplay steel={steel} />
+        <MoneyDisplay money={money} />
         <Stack spacing={2} width="100%" align="center">
           <Button leftIcon={<FaMountain />} colorScheme="orange" onClick={mineCopper} isDisabled={isMiningCopper}>
             Mine Copper
           </Button>
           <Progress hasStripe isAnimated value={copperProgress} width="80%" />
         </Stack>
-        <CopperDisplay copper={copper} />
-        <IronDisplay iron={iron} />
-        <CoalDisplay coal={coal} />
-        <SteelDisplay steel={steel} />
-        <MoneyDisplay money={money} />
         <SellItems iron={iron} coal={coal} steel={steel} copper={copper} money={money} setIron={setIron} setCoal={setCoal} setSteel={setSteel} setCopper={setCopper} setMoney={setMoney} />
         <Upgrades money={money} onPurchaseUpgrade={purchaseUpgrade} />
       </Stack>
