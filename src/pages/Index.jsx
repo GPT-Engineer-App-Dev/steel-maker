@@ -13,7 +13,7 @@ const Index = () => {
   const [iron, setIron] = useState(0);
   const [coal, setCoal] = useState(0);
   const [steel, setSteel] = useState(0);
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState(15);
   const [upgrades, setUpgrades] = useState({
     ironUpgrade: false,
     coalUpgrade: false,
