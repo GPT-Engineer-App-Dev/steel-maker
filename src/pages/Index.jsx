@@ -124,9 +124,23 @@ const Index = () => {
   }, [upgrades.autoMiner]);
 
   const purchaseUpgrade = (upgradeId, cost) => {
-    if (money >= cost) {
+    const isAlreadyPurchased = upgrades[upgradeId];
+    const isRepeatableUpgrade = upgradeId === "autoMiner" || upgradeId === "autoCoalMaker" || upgradeId === "extraFurnace";
+    if (isAlreadyPurchased && !isRepeatableUpgrade) {
+      toast({
+        title: "Upgrade already purchased",
+        description: "You have already purchased this upgrade.",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+      });
+    } else if (money >= cost) {
       setMoney((prevMoney) => prevMoney - cost);
-      setUpgrades((prevUpgrades) => ({ ...prevUpgrades, [upgradeId]: true }));
+      if (isRepeatableUpgrade) {
+        setUpgrades((prevUpgrades) => ({ ...prevUpgrades, [upgradeId]: (prevUpgrades[upgradeId] || 0) + 1 }));
+      } else {
+        setUpgrades((prevUpgrades) => ({ ...prevUpgrades, [upgradeId]: true }));
+      }
       // Handle purchase of autoCoalMaker
       if (upgradeId === "autoCoalMaker") {
         toast({
