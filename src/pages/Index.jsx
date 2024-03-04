@@ -249,6 +249,12 @@ const Index = () => {
       <Stack spacing={4} direction="column" align="center">
         <Stack spacing={4} direction="row" align="center">
           <Stack spacing={2} width="100%" align="center">
+            <Button leftIcon={<FaMountain />} colorScheme="orange" onClick={mineCopper} isDisabled={isMiningCopper}>
+              Mine Copper
+            </Button>
+            <Progress hasStripe isAnimated value={copperProgress} width="80%" />
+          </Stack>
+          <Stack spacing={2} width="100%" align="center">
             <Button leftIcon={<FaHammer />} colorScheme="orange" onClick={mineIron} isDisabled={isMiningIron}>
               Mine Iron
             </Button>
@@ -262,8 +268,6 @@ const Index = () => {
           </Stack>
           <Furnace iron={iron} coal={coal} setIron={setIron} setCoal={setCoal} setSteel={setSteel} steel={steel} />
         </Stack>
-        <CopperDisplay copper={copper} />
-        <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
         <SteelDisplay steel={steel} />
         <MoneyDisplay money={money} />
