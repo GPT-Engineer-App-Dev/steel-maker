@@ -13,6 +13,10 @@ const Upgrades = ({ money, onPurchaseUpgrade }) => {
     { id: "advancedTools", name: "Advanced Tools", cost: 400, description: "Increases the speed of making steel." },
     { id: "extraFurnace", name: "Extra Furnace", cost: 500, description: "Allows you to smelt steel in an additional furnace simultaneously." },
     { id: "autoMiner", name: "Auto Miner", cost: 600, description: "Automatically mines iron over time." },
+    { id: "superHeatFurnace", name: "Super Heat Furnace", cost: 700, description: "Increases steel smelting speed by 50%." },
+    { id: "megaDrill", name: "Mega Drill", cost: 800, description: "Triples iron mining output." },
+    { id: "carbonRecycler", name: "Carbon Recycler", cost: 900, description: "Triples coal mining output." },
+    { id: "steelRefinery", name: "Steel Refinery", cost: 1000, description: "Improves steel quality, increasing its selling price." },
   ].sort((a, b) => a.cost - b.cost);
 
   return (
