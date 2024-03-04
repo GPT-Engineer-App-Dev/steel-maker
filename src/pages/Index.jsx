@@ -270,7 +270,6 @@ const Index = () => {
         </Stack>
         <CoalDisplay coal={coal} />
         <SteelDisplay steel={steel} />
-        <MoneyDisplay money={money} />
         <CopperDisplay copper={copper} />
         <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
