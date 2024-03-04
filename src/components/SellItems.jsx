@@ -38,7 +38,7 @@ const SellItems = ({ iron, coal, steel, money, setIron, setCoal, setSteel, setMo
   const sellSteel = () => {
     if (steel > 0) {
       setSteel(steel - 1);
-      setMoney(money + 20);
+      setMoney(money + 30);
     } else {
       toast({
         title: "No steel to sell",
