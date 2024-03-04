@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Heading, Stack, useToast } from "@chakra-ui/react";
+import { Button, Container, Heading, Stack, useToast, Progress } from "@chakra-ui/react";
 import MoneyDisplay from "../components/MoneyDisplay";
 import IronDisplay from "../components/IronDisplay";
 import CoalDisplay from "../components/CoalDisplay";
@@ -85,17 +85,27 @@ const Index = () => {
   };
 
   const [isMakingSteel, setIsMakingSteel] = useState(false);
+  const [steelProgress, setSteelProgress] = useState(0);
 
   const makeSteel = () => {
     if (isMakingSteel) return;
     if (iron >= 2 && coal >= 1) {
       setIsMakingSteel(true);
-      setTimeout(() => {
-        setIron(iron - 2);
-        setCoal(coal - 1);
-        setSteel(steel + 1);
-        setIsMakingSteel(false);
-      }, 5000);
+      setSteelProgress(0);
+      const interval = setInterval(() => {
+        setSteelProgress((oldProgress) => {
+          const newProgress = oldProgress + 20;
+          if (newProgress === 100) {
+            clearInterval(interval);
+            setIron(iron - 2);
+            setCoal(coal - 1);
+            setSteel(steel + 1);
+            setIsMakingSteel(false);
+            setSteelProgress(0);
+          }
+          return newProgress;
+        });
+      }, 1000);
     } else {
       toast({
         title: "Not enough resources",
@@ -120,9 +130,12 @@ const Index = () => {
           <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
             Mine Coal
           </Button>
-          <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel} isDisabled={isMakingSteel}>
-            Make Steel
-          </Button>
+          <Stack spacing={2} width="100%" align="center">
+            <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel} isDisabled={isMakingSteel}>
+              Make Steel
+            </Button>
+            <Progress hasStripe isAnimated value={steelProgress} width="80%" />
+          </Stack>
         </Stack>
         <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
