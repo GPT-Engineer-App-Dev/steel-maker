@@ -1,31 +1,39 @@
 import React, { useState } from "react";
 import { Box, Button, Container, Heading, Stack, Text, Progress, useToast } from "@chakra-ui/react";
 import { FaHammer, FaFire, FaMountain, FaCoins } from "react-icons/fa";
+import Upgrades from "../components/Upgrades";
 
 const Index = () => {
   const [iron, setIron] = useState(0);
   const [coal, setCoal] = useState(0);
   const [steel, setSteel] = useState(0);
   const [money, setMoney] = useState(0);
+  const [upgrades, setUpgrades] = useState({
+    ironUpgrade: false,
+    coalUpgrade: false,
+    moneyUpgrade: false,
+  });
   const toast = useToast();
 
   const mineIron = () => {
-    setIron(iron + 1);
+    const ironOutput = upgrades.ironUpgrade ? 2 : 1;
+    setIron(iron + ironOutput);
   };
 
   const mineCoal = () => {
-    setCoal(coal + 1);
+    const coalOutput = upgrades.coalUpgrade ? 2 : 1;
+    setCoal(coal + coalOutput);
   };
 
-  const makeSteel = () => {
-    if (iron >= 1 && coal >= 2) {
-      setIron(iron - 1);
-      setCoal(coal - 2);
-      setSteel(steel + 1);
+  const sellSteel = () => {
+    const steelPrice = upgrades.moneyUpgrade ? 40 : 20;
+    if (steel > 0) {
+      setSteel(steel - 1);
+      setMoney(money + steelPrice);
     } else {
       toast({
-        title: "Not enough resources",
-        description: "You need at least 1 Iron and 2 Coal to make Steel.",
+        title: "No steel to sell",
+        description: "You have no steel to sell.",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -33,14 +41,14 @@ const Index = () => {
     }
   };
 
-  const sellSteel = () => {
-    if (steel > 0) {
-      setSteel(steel - 1);
-      setMoney(money + 20);
+  const purchaseUpgrade = (upgradeId, cost) => {
+    if (money >= cost) {
+      setMoney(money - cost);
+      setUpgrades({ ...upgrades, [upgradeId]: true });
     } else {
       toast({
-        title: "No steel to sell",
-        description: "You have no steel to sell.",
+        title: "Not enough money",
+        description: "You do not have enough money to purchase this upgrade.",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -54,34 +62,13 @@ const Index = () => {
         Steel Production Game
       </Heading>
       <Stack spacing={4} align="center">
-        <Box>
-          <Text fontSize="lg">Iron: {iron}</Text>
-          <Button leftIcon={<FaMountain />} colorScheme="orange" onClick={mineIron}>
-            Mine Iron
-          </Button>
-        </Box>
-        <Box>
-          <Text fontSize="lg">Coal: {coal}</Text>
-          <Button leftIcon={<FaFire />} colorScheme="gray" onClick={mineCoal}>
-            Mine Coal
-          </Button>
-        </Box>
-        <Box>
-          <Text fontSize="lg">Steel: {steel}</Text>
-          <Button leftIcon={<FaHammer />} colorScheme="blue" onClick={makeSteel}>
-            Make Steel
-          </Button>
-        </Box>
-        <Box>
-          <Text fontSize="lg">Money: ${money}</Text>
-          <Button leftIcon={<FaCoins />} colorScheme="green" onClick={sellSteel}>
-            Sell Steel
-          </Button>
-        </Box>
-        <Progress colorScheme="pink" size="sm" value={(steel / (iron + coal + steel)) * 100} width="100%" />
+        {}
+        <Upgrades money={money} onPurchaseUpgrade={purchaseUpgrade} />
       </Stack>
     </Container>
   );
 };
 
 export default Index;
+
+// Remove the duplicated Index component and export default statement
