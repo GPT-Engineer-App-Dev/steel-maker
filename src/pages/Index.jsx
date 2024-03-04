@@ -4,7 +4,8 @@ import MiningFacts from "../components/MiningFacts";
 import MoneyDisplay from "../components/MoneyDisplay";
 import IronDisplay from "../components/IronDisplay";
 import CoalDisplay from "../components/CoalDisplay";
-import { FaHammer, FaFire, FaMountain, FaCoins } from "react-icons/fa";
+import { FaHammer, FaFire, FaMountain } from "react-icons/fa";
+import CopperDisplay from "../components/CopperDisplay";
 import Upgrades from "../components/Upgrades";
 
 import Furnace from "../components/Furnace";
@@ -18,6 +19,9 @@ const Index = () => {
   const [coalProgress, setCoalProgress] = useState(0);
   const [steel, setSteel] = useState(0);
   const [money, setMoney] = useState(600);
+  const [copper, setCopper] = useState(0);
+  const [copperProgress, setCopperProgress] = useState(0);
+  const [isMiningCopper, setIsMiningCopper] = useState(false);
   const [upgrades, setUpgrades] = useState({
     ironUpgrade: false,
     coalUpgrade: false,
@@ -123,6 +127,33 @@ const Index = () => {
       return () => clearInterval(autoMinerInterval);
     }
   }, [upgrades.autoMiner]);
+
+  const mineCopper = () => {
+    if (!isMiningCopper) {
+      setCopperProgress(0);
+      setIsMiningCopper(true);
+      const copperInterval = setInterval(() => {
+        setCopperProgress((oldProgress) => {
+          const newProgress = oldProgress + 33.33;
+          if (newProgress >= 100) {
+            clearInterval(copperInterval);
+            setCopper(copper + 1);
+            setIsMiningCopper(false);
+            setCopperProgress(0);
+          }
+          return newProgress;
+        });
+      }, 1000);
+    } else {
+      toast({
+        title: "Already mining",
+        description: "You are already mining copper.",
+        status: "info",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
 
   const purchaseUpgrade = (upgradeId, cost) => {
     const isAlreadyPurchased = upgrades[upgradeId];
@@ -235,7 +266,18 @@ const Index = () => {
         <CoalDisplay coal={coal} />
         <SteelDisplay steel={steel} />
         <MoneyDisplay money={money} />
-        <SellItems iron={iron} coal={coal} steel={steel} money={money} setIron={setIron} setCoal={setCoal} setSteel={setSteel} setMoney={setMoney} />
+        <Stack spacing={2} width="100%" align="center">
+          <Button leftIcon={<FaMountain />} colorScheme="orange" onClick={mineCopper} isDisabled={isMiningCopper}>
+            Mine Copper
+          </Button>
+          <Progress hasStripe isAnimated value={copperProgress} width="80%" />
+        </Stack>
+        <IronDisplay iron={iron} />
+        <CoalDisplay coal={coal} />
+        <CopperDisplay copper={copper} />
+        <SteelDisplay steel={steel} />
+        <MoneyDisplay money={money} />
+        <SellItems iron={iron} coal={coal} steel={steel} copper={copper} money={money} setIron={setIron} setCoal={setCoal} setSteel={setSteel} setCopper={setCopper} setMoney={setMoney} />
         <Upgrades money={money} onPurchaseUpgrade={purchaseUpgrade} />
       </Stack>
     </Container>

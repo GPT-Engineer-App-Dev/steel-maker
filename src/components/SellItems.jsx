@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Stack, useToast } from "@chakra-ui/react";
 import { FaCoins } from "react-icons/fa";
 
-const SellItems = ({ iron, coal, steel, money, setIron, setCoal, setSteel, setMoney }) => {
+const SellItems = ({ iron, coal, steel, copper, money, setIron, setCoal, setSteel, setCopper, setMoney }) => {
   const toast = useToast();
 
   const sellIron = () => {
@@ -35,14 +35,23 @@ const SellItems = ({ iron, coal, steel, money, setIron, setCoal, setSteel, setMo
     }
   };
 
-  const sellSteel = () => {
-    if (steel > 0) {
+  const sellItem = (item, price) => {
+    if (item === "iron" && iron > 0) {
+      setIron(iron - 1);
+      setMoney(money + price);
+    } else if (item === "coal" && coal > 0) {
+      setCoal(coal - 1);
+      setMoney(money + price);
+    } else if (item === "steel" && steel > 0) {
       setSteel(steel - 1);
-      setMoney(money + 30);
+      setMoney(money + price);
+    } else if (item === "copper" && copper > 0) {
+      setCopper(copper - 1);
+      setMoney(money + price);
     } else {
       toast({
-        title: "No steel to sell",
-        description: "You have no steel to sell.",
+        title: `No ${item} to sell`,
+        description: `You have no ${item} to sell.`,
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -58,8 +67,11 @@ const SellItems = ({ iron, coal, steel, money, setIron, setCoal, setSteel, setMo
       <Button leftIcon={<FaCoins />} colorScheme="yellow" onClick={sellCoal}>
         Sell Coal
       </Button>
-      <Button leftIcon={<FaCoins />} colorScheme="yellow" onClick={sellSteel}>
+      <Button leftIcon={<FaCoins />} colorScheme="yellow" onClick={() => sellItem("steel", 30)}>
         Sell Steel
+      </Button>
+      <Button leftIcon={<FaCoins />} colorScheme="yellow" onClick={() => sellItem("copper", 3)}>
+        Sell Copper
       </Button>
     </Stack>
   );
