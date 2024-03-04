@@ -75,7 +75,7 @@ const Index = () => {
   useEffect(() => {
     if (upgrades.autoMiner) {
       const autoMinerInterval = setInterval(() => {
-        setSteel((prevSteel) => prevSteel + 1);
+        setIron((prevIron) => prevIron + 1);
       }, 5000);
       return () => clearInterval(autoMinerInterval);
     }
@@ -88,7 +88,7 @@ const Index = () => {
       if (upgradeId === "autoMiner") {
         toast({
           title: "Auto Miner activated",
-          description: "Steel will now be mined automatically over time.",
+          description: "Iron will now be mined automatically over time.",
           status: "success",
           duration: 2000,
           isClosable: true,
