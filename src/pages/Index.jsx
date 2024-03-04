@@ -84,11 +84,18 @@ const Index = () => {
     }
   };
 
+  const [isMakingSteel, setIsMakingSteel] = useState(false);
+
   const makeSteel = () => {
+    if (isMakingSteel) return;
     if (iron >= 2 && coal >= 1) {
-      setIron(iron - 2);
-      setCoal(coal - 1);
-      setSteel(steel + 1);
+      setIsMakingSteel(true);
+      setTimeout(() => {
+        setIron(iron - 2);
+        setCoal(coal - 1);
+        setSteel(steel + 1);
+        setIsMakingSteel(false);
+      }, 5000);
     } else {
       toast({
         title: "Not enough resources",
@@ -113,7 +120,7 @@ const Index = () => {
           <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
             Mine Coal
           </Button>
-          <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel}>
+          <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel} isDisabled={isMakingSteel}>
             Make Steel
           </Button>
         </Stack>
