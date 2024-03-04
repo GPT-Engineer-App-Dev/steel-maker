@@ -22,13 +22,35 @@ const Index = () => {
   const toast = useToast();
 
   const mineIron = () => {
-    const ironOutput = upgrades.ironUpgrade ? 2 : 1;
-    setIron(iron + ironOutput);
+    if (money >= 5) {
+      const ironOutput = upgrades.ironUpgrade ? 2 : 1;
+      setMoney(money - 5);
+      setIron(iron + ironOutput);
+    } else {
+      toast({
+        title: "Not enough money",
+        description: "You need at least $5 to mine iron.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   const mineCoal = () => {
-    const coalOutput = upgrades.coalUpgrade ? 2 : 1;
-    setCoal(coal + coalOutput);
+    if (money >= 5) {
+      const coalOutput = upgrades.coalUpgrade ? 2 : 1;
+      setMoney(money - 5);
+      setCoal(coal + coalOutput);
+    } else {
+      toast({
+        title: "Not enough money",
+        description: "You need at least $5 to mine coal.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   const sellSteel = () => {
