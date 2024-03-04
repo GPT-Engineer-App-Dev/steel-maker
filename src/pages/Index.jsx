@@ -6,6 +6,7 @@ import CoalDisplay from "../components/CoalDisplay";
 import { FaHammer, FaFire, FaMountain, FaCoins } from "react-icons/fa";
 import Upgrades from "../components/Upgrades";
 
+import Furnace from "../components/Furnace";
 import SteelDisplay from "../components/SteelDisplay";
 import SellItems from "../components/SellItems";
 
@@ -130,12 +131,7 @@ const Index = () => {
           <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
             Mine Coal
           </Button>
-          <Stack spacing={2} width="100%" align="center">
-            <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel} isDisabled={isMakingSteel}>
-              Make Steel
-            </Button>
-            <Progress hasStripe isAnimated value={steelProgress} width="80%" />
-          </Stack>
+          <Furnace iron={iron} coal={coal} setIron={setIron} setCoal={setCoal} setSteel={setSteel} steel={steel} />
         </Stack>
         <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
