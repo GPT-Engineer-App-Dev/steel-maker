@@ -7,6 +7,7 @@ import { FaHammer, FaFire, FaMountain, FaCoins } from "react-icons/fa";
 import Upgrades from "../components/Upgrades";
 
 import SteelDisplay from "../components/SteelDisplay";
+import SellItems from "../components/SellItems";
 
 const Index = () => {
   const [iron, setIron] = useState(0);
@@ -82,20 +83,23 @@ const Index = () => {
       <Heading mb={6} textAlign="center">
         Steel Production Game
       </Heading>
-      <Stack spacing={4} align="center">
-        <Button leftIcon={<FaHammer />} colorScheme="orange" onClick={mineIron}>
-          Mine Iron
-        </Button>
-        <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
-          Mine Coal
-        </Button>
-        <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel}>
-          Make Steel
-        </Button>
+      <Stack spacing={4} direction="column" align="center">
+        <Stack spacing={4} direction="row" align="center">
+          <Button leftIcon={<FaHammer />} colorScheme="orange" onClick={mineIron}>
+            Mine Iron
+          </Button>
+          <Button leftIcon={<FaFire />} colorScheme="teal" onClick={mineCoal}>
+            Mine Coal
+          </Button>
+          <Button leftIcon={<FaMountain />} colorScheme="gray" onClick={makeSteel}>
+            Make Steel
+          </Button>
+        </Stack>
         <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
         <SteelDisplay steel={steel} />
         <MoneyDisplay money={money} />
+        <SellItems iron={iron} coal={coal} steel={steel} money={money} setIron={setIron} setCoal={setCoal} setSteel={setSteel} setMoney={setMoney} />
         <Upgrades money={money} onPurchaseUpgrade={purchaseUpgrade} />
       </Stack>
     </Container>
