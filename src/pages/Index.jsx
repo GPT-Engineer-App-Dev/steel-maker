@@ -262,6 +262,7 @@ const Index = () => {
           </Stack>
           <Furnace iron={iron} coal={coal} setIron={setIron} setCoal={setCoal} setSteel={setSteel} steel={steel} />
         </Stack>
+        <CopperDisplay copper={copper} />
         <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
         <SteelDisplay steel={steel} />
