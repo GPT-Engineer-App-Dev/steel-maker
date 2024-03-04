@@ -6,7 +6,9 @@ const MoneyDisplay = ({ money }) => {
   return (
     <Box p={4} bg="yellow.200" borderRadius="md" display="flex" alignItems="center">
       <Icon as={FaCoins} mr={2} />
-      <Text fontWeight="bold">${money}</Text>
+      <Text fontWeight="bold" color="black">
+        ${money}
+      </Text>
     </Box>
   );
 };
