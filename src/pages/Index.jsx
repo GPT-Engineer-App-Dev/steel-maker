@@ -273,9 +273,9 @@ const Index = () => {
           </Button>
           <Progress hasStripe isAnimated value={copperProgress} width="80%" />
         </Stack>
+        <CopperDisplay copper={copper} />
         <IronDisplay iron={iron} />
         <CoalDisplay coal={coal} />
-        <CopperDisplay copper={copper} />
         <SteelDisplay steel={steel} />
         <MoneyDisplay money={money} />
         <SellItems iron={iron} coal={coal} steel={steel} copper={copper} money={money} setIron={setIron} setCoal={setCoal} setSteel={setSteel} setCopper={setCopper} setMoney={setMoney} />
