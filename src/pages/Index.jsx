@@ -36,7 +36,7 @@ const Index = () => {
   const sellSteel = () => {
     if (steel > 0) {
       setSteel(steel - 1);
-      setMoney(money + 50); // Let's assume each steel sells for $50
+      setMoney(money + 20);
     } else {
       toast({
         title: "No steel to sell",
